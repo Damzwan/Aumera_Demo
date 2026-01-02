@@ -38,3 +38,6 @@ To create something slightly more original :)
 * Robust error recovery: Exponential backoff for reconnection attempts, clearer error handling in the UI (e.g. toasts)
 * Component Modularity: The logic of the textbox is pretty big, can be decreased
 * Chat history log: A modal or so with the previous turns (very easy)
+
+## What I could have done better
+* Use git from the get go and actually commit instead of a big commit at the end 😵‍💫
