@@ -13,9 +13,7 @@ export function useGeminiLive() {
     const wsRef = useRef<WebSocket | null>(null);
 
     const connect = useCallback(async () => {
-        // 1. Guard: If we are already connected or connecting, stop.
         if (wsRef.current && (wsRef.current.readyState === WebSocket.OPEN || wsRef.current.readyState === WebSocket.CONNECTING)) {
-            console.log("Socket already active, skipping connect.");
             return;
         }
 
@@ -127,8 +125,7 @@ export function useGeminiLive() {
 
     useEffect(() => {
         const handleOnline = () => {
-            // Add a small delay to ensure network is fully stable
-            setTimeout(() => connect(), 1000);
+            setTimeout(() => connect(), 1000); // Add a small delay to ensure network is fully stable
         };
 
         const handleOffline = () => {
