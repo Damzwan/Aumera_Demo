@@ -8,6 +8,11 @@ Create a .env file in the root directory and add your Google AI studio key:
 GEMINI_API_KEY=<YOUR_KEY>
 ```
 
+Install packages
+```bash
+bun install
+```
+
 Run the development server:
 
 ```bash
