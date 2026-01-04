@@ -48,7 +48,6 @@ export function useGeminiLive() {
 
                 try {
                     const msg = JSON.parse(msgData);
-                    console.log(msg.serverContent);
                     if (msg.serverContent?.turnComplete) {
                         setIsStreaming(false);
                         return;
