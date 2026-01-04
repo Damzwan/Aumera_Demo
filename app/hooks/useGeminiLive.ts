@@ -48,7 +48,7 @@ export function useGeminiLive() {
 
                 try {
                     const msg = JSON.parse(msgData);
-
+                    console.log(msg.serverContent);
                     if (msg.serverContent?.turnComplete) {
                         setIsStreaming(false);
                         return;
@@ -57,7 +57,6 @@ export function useGeminiLive() {
                     if (msg.serverContent?.modelTurn?.parts) {
                         const textPart = msg.serverContent.modelTurn.parts.find((p: { text: string }) => p.text);
                         if (textPart) {
-                            setIsStreaming(true);
                             setMessages(prev => {
                                 const lastMsg = prev[prev.length - 1];
                                 if (lastMsg && lastMsg.role === 'model') {
@@ -78,13 +77,14 @@ export function useGeminiLive() {
 
             ws.onerror = (err) => {
                 console.error("WebSocket Error", err);
-                // Don't set status here; wait for onclose
+                setIsStreaming(false);
             };
 
             ws.onclose = (ev) => {
                 console.log("WebSocket Closed:", ev.reason);
                 setStatus('disconnected');
-                wsRef.current = null; // <--- CRITICAL: Allow reconnection
+                setIsStreaming(false);
+                wsRef.current = null;
             };
 
             wsRef.current = ws;
@@ -110,6 +110,7 @@ export function useGeminiLive() {
                 turn_complete: true
             }
         };
+        setIsStreaming(true);
         wsRef.current.send(JSON.stringify(payload));
     }, []);
 
